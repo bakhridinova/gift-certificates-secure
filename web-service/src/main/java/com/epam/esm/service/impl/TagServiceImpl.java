@@ -6,7 +6,6 @@ import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.repository.TagRepository;
 import com.epam.esm.service.TagService;
 import com.epam.esm.util.hateoas.HateoasAdder;
-import com.epam.esm.util.mapper.PageMapper;
 import com.epam.esm.util.mapper.entity.TagMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,7 +24,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public Page<TagDto> findAllByPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<TagDto> tags = PageMapper.mapEntitiyPageToEntityDtoPage(tagRepository
+        Page<TagDto> tags = tagMapper.mapEntitiyPageToEntityDtoPage(tagRepository
                 .findAll(pageable), tagMapper);
 
         tagHateoasAdder.addLinksToEntityPage(tags);

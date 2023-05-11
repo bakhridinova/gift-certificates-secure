@@ -6,7 +6,6 @@ import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.repository.OrderRepository;
 import com.epam.esm.service.OrderService;
 import com.epam.esm.util.hateoas.HateoasAdder;
-import com.epam.esm.util.mapper.PageMapper;
 import com.epam.esm.util.mapper.entity.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<OrderDto> findAllByPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<OrderDto> orders = PageMapper.mapEntitiyPageToEntityDtoPage(orderRepository
+        Page<OrderDto> orders = orderMapper.mapEntitiyPageToEntityDtoPage(orderRepository
                 .findAll(pageable), orderMapper);
         orderHateoasAdder.addLinksToEntityPage(orders);
 
@@ -45,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<OrderDto> findByUserIdAndPage(Long userId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<OrderDto> orders = PageMapper.mapEntitiyPageToEntityDtoPage(orderRepository
+        Page<OrderDto> orders = orderMapper.mapEntitiyPageToEntityDtoPage(orderRepository
                 .findByUserId(userId, pageable), orderMapper);
 
         orderHateoasAdder.addLinksToEntityPage(orders);

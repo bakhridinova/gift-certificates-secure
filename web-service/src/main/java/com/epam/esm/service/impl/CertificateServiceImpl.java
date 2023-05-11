@@ -7,7 +7,6 @@ import com.epam.esm.repository.CertificateRepository;
 import com.epam.esm.service.CertificateService;
 import com.epam.esm.util.filter.SearchFilter;
 import com.epam.esm.util.hateoas.HateoasAdder;
-import com.epam.esm.util.mapper.PageMapper;
 import com.epam.esm.util.mapper.entity.CertificateMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +26,7 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public Page<CertificateDto> findAllByPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<CertificateDto> certificates = PageMapper.mapEntitiyPageToEntityDtoPage(certificateRepository
+        Page<CertificateDto> certificates = certificateMapper.mapEntitiyPageToEntityDtoPage(certificateRepository
                 .findAll(pageable), certificateMapper);
 
         certificateHateoasAdder.addLinksToEntityPage(certificates);
@@ -48,7 +47,7 @@ public class CertificateServiceImpl implements CertificateService {
     public Page<CertificateDto> findByFilterAndPage(SearchFilter searchFilter, int page, int size) {
         Pageable pageable = PageRequest.of(page, size).withSort(Sort.by(Sort.Direction.valueOf(
                 searchFilter.sortOrder().toUpperCase()), searchFilter.sortProperty()));
-        Page<CertificateDto> certificates = PageMapper.mapListToPage(certificateRepository
+        Page<CertificateDto> certificates = certificateMapper.mapListToPage(certificateRepository
                 .findByFilterAndPage(searchFilter), pageable).map(certificateMapper::toEntityDto);
 
         certificateHateoasAdder.addLinksToEntityPage(certificates);

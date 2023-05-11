@@ -5,7 +5,6 @@ import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.repository.UserRepository;
 import com.epam.esm.service.UserService;
 import com.epam.esm.util.hateoas.HateoasAdder;
-import com.epam.esm.util.mapper.PageMapper;
 import com.epam.esm.util.mapper.entity.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,7 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserDto> findAllByPage(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<UserDto> users = PageMapper.mapEntitiyPageToEntityDtoPage(userRepository
+        Page<UserDto> users = userMapper.mapEntitiyPageToEntityDtoPage(userRepository
                 .findAll(pageable), userMapper);
         userHateoasAdder.addLinksToEntityPage(users);
         return users;
