@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version "$springBootVersion"
+    id 'io.spring.dependency-management' version '1.1.0'
+    id "org.flywaydb.flyway" version "9.16.1"
+    id "org.sonarqube" version "4.0.0.2929"
+    id 'jacoco-report-aggregation'
+}
+
+sonarqube {
+    properties {
+        // todo set properties to be able to see code analysis
+        property 'sonar.host.url', "$sonarQubeUrl"
+        property 'sonar.login', "$sonarQubeLogin"
+        property 'sonar.password', "$sonarQubePassword"
+        property 'sonar.token', "$sonarQubeToken"
+    }
+}
+
+allprojects {
+    group = 'com.epam.esm'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '17'
+
+    apply plugin: 'java'
+    apply plugin: 'org.sonarqube'
+    apply plugin: 'jacoco-report-aggregation'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // lombok
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+
+        // spring boot
+        implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+        }
+    }
+
+    tasks.named('check') {
+        dependsOn tasks.named('testCodeCoverageReport', JacocoReport)
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
