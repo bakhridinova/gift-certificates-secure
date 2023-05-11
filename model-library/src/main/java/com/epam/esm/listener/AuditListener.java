@@ -1,4 +1,4 @@
-package com.epam.esm.entity.listener;
+package com.epam.esm.listener;
 
 import com.epam.esm.entity.AbstractEntity;
 import org.slf4j.Logger;
