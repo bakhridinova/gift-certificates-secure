@@ -4,10 +4,12 @@ import com.epam.esm.dto.CertificateDto;
 import com.epam.esm.entity.Certificate;
 import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.repository.CertificateRepository;
+import com.epam.esm.repository.TagRepository;
 import com.epam.esm.service.CertificateService;
 import com.epam.esm.util.filter.SearchFilter;
 import com.epam.esm.util.hateoas.HateoasAdder;
 import com.epam.esm.util.mapper.entity.CertificateMapper;
+import com.epam.esm.util.mapper.entity.TagMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +24,8 @@ public class CertificateServiceImpl implements CertificateService {
     private final CertificateRepository certificateRepository;
     private final CertificateMapper certificateMapper;
     private final HateoasAdder<CertificateDto> certificateHateoasAdder;
+    private final TagRepository tagRepository;
+    private final TagMapper tagMapper;
 
     @Override
     public Page<CertificateDto> findAllByPage(int page, int size) {
@@ -62,7 +66,6 @@ public class CertificateServiceImpl implements CertificateService {
                 .orElseThrow(() -> new CustomEntityNotFoundException(
                         "failed to find certificate by orderId " + id));
         certificate.setPrice(certificateDto.getPrice());
-        certificateRepository.save(certificate);
         certificateDto = certificateMapper.toEntityDto(certificate);
 
         certificateHateoasAdder.addLinksToEntity(certificateDto);
@@ -72,6 +75,9 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     @Transactional
     public CertificateDto create(CertificateDto certificateDto) {
+        certificateDto.getTags().stream().filter(tag -> tag.getId() == null)
+                .forEach(tag -> tag.setId(tagRepository.save(tagMapper.toEntity(tag)).getId()));
+
         certificateDto = certificateMapper.toEntityDto(certificateRepository
                 .save(certificateMapper.toEntity(certificateDto)));
 
