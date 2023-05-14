@@ -1,8 +1,7 @@
-package com.epam.esm.util.mapper.entity;
+package com.epam.esm.util.mapper;
 
 import com.epam.esm.dto.TagDto;
 import com.epam.esm.entity.Tag;
-import com.epam.esm.util.mapper.BaseMapper;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
