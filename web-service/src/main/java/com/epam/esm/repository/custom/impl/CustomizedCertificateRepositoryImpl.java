@@ -4,10 +4,10 @@ import com.epam.esm.entity.Certificate;
 import com.epam.esm.repository.custom.CustomizedCertificateRepository;
 import com.epam.esm.util.filter.SearchFilter;
 import com.speedment.jpastreamer.application.JPAStreamer;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import jakarta.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.List;
 
