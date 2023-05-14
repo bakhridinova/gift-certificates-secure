@@ -54,7 +54,7 @@ public class TagController {
      * @return specified tag
      */
     @GetMapping("/special")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<TagDto> getSpecial() {
         return new CustomResponse<>(tagService.findSpecial());
     }

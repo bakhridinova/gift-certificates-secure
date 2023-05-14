@@ -57,7 +57,7 @@ public class CertificateController {
      * @return List of certificates based on provided search parameters
      */
     @PostMapping("/search")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Page<CertificateDto> search(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "5") int size,
                                        @RequestBody(required = false) SearchFilter searchFilter) {

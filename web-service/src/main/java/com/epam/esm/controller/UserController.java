@@ -28,7 +28,7 @@ public class UserController {
      * @return List of users
      */
     @GetMapping
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Page<UserDto> getAllByPage(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "5") int size) {
         return userService.findAllByPage(page, size);
@@ -41,7 +41,7 @@ public class UserController {
      * @return specified user
      */
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<UserDto> getById(@PathVariable Long id) {
         return new CustomResponse<>(userService.findById(id));
     }

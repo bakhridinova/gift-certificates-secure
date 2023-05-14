@@ -29,7 +29,7 @@ public class OrderController {
      * @return List of orders
      */
     @GetMapping
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Page<OrderDto> getAllByPage(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "5") int size) {
        return orderService.findAllByPage(page, size);
@@ -42,7 +42,7 @@ public class OrderController {
      * @return specified order
      */
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> getById(@PathVariable Long id) {
        return new CustomResponse<>(orderService.findById(id));
     }
@@ -54,7 +54,7 @@ public class OrderController {
      * @return specified order
      */
     @PatchMapping("/{id}/pay")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> payById(@PathVariable Long id) {
         return new CustomResponse<>(orderService.payById(id));
     }
@@ -66,7 +66,7 @@ public class OrderController {
      * @return specified order
      */
     @PatchMapping("/{id}/cancel")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> cancelById(@PathVariable Long id) {
         return new CustomResponse<>(orderService.cancelById(id));
     }
@@ -78,7 +78,7 @@ public class OrderController {
      * @return order that was created
      */
     @PostMapping
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> create(@RequestBody OrderDto order) {
         return new CustomResponse<>(orderService.create(order));
     }
@@ -92,7 +92,7 @@ public class OrderController {
      * @return List of orders associated with certificate
      */
     @GetMapping("/search")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Page<OrderDto> getByUserId(@RequestParam(required = false) Long userId,
                                       @RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "5") int size) {
