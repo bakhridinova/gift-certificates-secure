@@ -1,15 +1,15 @@
 package com.epam.esm.security.config;
 
 import com.epam.esm.repository.UserRepository;
-import com.epam.esm.security.authentication.filter.CustomAuthenticationFilter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * security configuration
@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     /**
@@ -25,19 +26,20 @@ public class SecurityConfig {
      * to security filter chain
      *
      * @param httpSecurity HttpSecurity
-     * @param authenticationFilter CustomAuthenticationFilter
      * @return instance of SecurityFilterChain
      * @throws Exception if error occurs
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
-                                                   CustomAuthenticationFilter authenticationFilter)
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)
             throws Exception {
 
         return httpSecurity
-                .addFilterAt(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests().anyRequest().authenticated()
-                .and().build();
+                .httpBasic().and()
+                .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.GET, "/api/certificates", "/api/certificates/*").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/tags", "/api/tags/*").permitAll()
+                .anyRequest().authenticated()
+                .and().csrf().disable().build();
     }
 
 

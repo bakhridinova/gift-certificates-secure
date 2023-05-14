@@ -6,6 +6,7 @@ import com.epam.esm.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,6 +54,7 @@ public class TagController {
      * @return specified tag
      */
     @GetMapping("/special")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public CustomResponse<TagDto> getSpecial() {
         return new CustomResponse<>(tagService.findSpecial());
     }
@@ -64,6 +66,7 @@ public class TagController {
      * @return tag that was created
      */
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public CustomResponse<TagDto> create(@RequestBody TagDto tag) {
         return new CustomResponse<>(tagService.create(tag));
     }
@@ -75,6 +78,7 @@ public class TagController {
      * @return message expressing that tag was successfully deleted
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public CustomResponse<?> deleteById(@PathVariable Long id) {
         return new CustomResponse<>(HttpStatus.OK, tagService.deleteById(id));
     }
