@@ -1,6 +1,6 @@
 package com.epam.esm.security.authentication.manager;
 
-import com.epam.esm.security.authentication.exception.CustomAuthenticationUnsupportedException;
+import com.epam.esm.exception.CustomAuthenticationUnsupportedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
