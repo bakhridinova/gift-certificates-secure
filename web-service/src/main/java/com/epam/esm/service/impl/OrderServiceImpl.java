@@ -1,7 +1,7 @@
 package com.epam.esm.service.impl;
 
 import com.epam.esm.dto.OrderDto;
-import com.epam.esm.entity.Order;
+import com.epam.esm.enums.Status;
 import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.repository.OrderRepository;
 import com.epam.esm.service.OrderService;
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderDto payById(Long id) {
         OrderDto orderDto = orderMapper.toEntityDto(orderRepository
-                .updateStatusById(id, Order.Status.PAID.toString()));
+                .updateStatusById(id, Status.PAID.toString()));
 
         orderHateoasAdder.addLinksToEntity(orderDto);
         return orderDto;
@@ -75,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderDto cancelById(Long id) {
         OrderDto order = orderMapper.toEntityDto(orderRepository
-                .updateStatusById(id, Order.Status.CANCELLED.toString()));
+                .updateStatusById(id, Status.CANCELLED.toString()));
 
         orderHateoasAdder.addLinksToEntity(order);
         return order;

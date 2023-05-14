@@ -1,5 +1,6 @@
 package com.epam.esm.entity;
 
+import com.epam.esm.enums.Status;
 import com.epam.esm.listener.AuditListener;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -65,11 +66,5 @@ public class Order extends AbstractEntity {
         this.createdAt = createdAt;
         this.user = user;
         this.certificate = certificate;
-    }
-
-    public enum Status {
-        PENDING,
-        CANCELLED,
-        PAID
     }
 }
