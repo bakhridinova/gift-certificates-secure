@@ -1,5 +1,6 @@
 package com.epam.esm.entity;
 
+import com.epam.esm.enums.Role;
 import com.epam.esm.listener.AuditListener;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -67,11 +68,5 @@ public class User extends AbstractEntity {
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.birthDate = birthDate;
-    }
-
-    public enum Role {
-        GUEST,
-        USER,
-        ADMIN
     }
 }

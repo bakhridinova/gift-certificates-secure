@@ -38,8 +38,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, "/api/certificates", "/api/certificates/*").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/tags", "/api/tags/*").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().disable().build();
+                .anyRequest().authenticated().and()
+                .csrf().disable()
+                .build();
     }
 
 
