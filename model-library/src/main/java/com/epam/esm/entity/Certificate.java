@@ -32,10 +32,10 @@ import java.util.List;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name = "certificates")
 @EqualsAndHashCode(callSuper = true)
 @EntityListeners(AuditListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "certificate_id"))
 public class Certificate extends AbstractEntity {
     @Column(nullable = false)
