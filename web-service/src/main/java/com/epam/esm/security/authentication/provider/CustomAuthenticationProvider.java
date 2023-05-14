@@ -1,7 +1,7 @@
 package com.epam.esm.security.authentication.provider;
 
 import com.epam.esm.security.authentication.CustomAuthentication;
-import com.epam.esm.security.authentication.exception.CustomAuthenticationFailedException;
+import com.epam.esm.exception.CustomAuthenticationFailedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
