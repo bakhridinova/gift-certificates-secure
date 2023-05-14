@@ -15,10 +15,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-/**
- * @author bakhridinova
- */
-
 @Component
 @RequiredArgsConstructor
 public class CustomAuthenticationFilter extends OncePerRequestFilter {
