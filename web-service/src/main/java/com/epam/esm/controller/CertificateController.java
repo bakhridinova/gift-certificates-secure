@@ -7,6 +7,7 @@ import com.epam.esm.util.filter.SearchFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -56,6 +57,7 @@ public class CertificateController {
      * @return List of certificates based on provided search parameters
      */
     @PostMapping("/search")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Page<CertificateDto> search(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "5") int size,
                                        @RequestBody(required = false) SearchFilter searchFilter) {
@@ -69,6 +71,7 @@ public class CertificateController {
      * @return certificate that was created
      */
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public CustomResponse<CertificateDto> create(@RequestBody CertificateDto certificate) {
         return new CustomResponse<>(certificateService.create(certificate));
     }
@@ -81,6 +84,7 @@ public class CertificateController {
      * @return updated certificate
      */
     @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public CustomResponse<CertificateDto> updatePriceById(@PathVariable Long id,
                                                           @RequestBody CertificateDto certificate) {
         return new CustomResponse<>(certificateService.updatePriceById(id, certificate));
@@ -93,6 +97,7 @@ public class CertificateController {
      * @return message expressing that certificate was successfully deleted
      */
     @DeleteMapping("{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public CustomResponse<?> deleteById(@PathVariable Long id) {
         return new CustomResponse<>(HttpStatus.OK, certificateService.deleteById(id));
     }

@@ -5,6 +5,7 @@ import com.epam.esm.dto.UserDto;
 import com.epam.esm.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ public class UserController {
      * @return List of users
      */
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Page<UserDto> getAllByPage(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "5") int size) {
         return userService.findAllByPage(page, size);
@@ -39,6 +41,7 @@ public class UserController {
      * @return specified user
      */
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public CustomResponse<UserDto> getById(@PathVariable Long id) {
         return new CustomResponse<>(userService.findById(id));
     }
@@ -50,6 +53,7 @@ public class UserController {
      * @return user that was created
      */
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public CustomResponse<UserDto> create(@RequestBody UserDto user) {
         return new CustomResponse<>(userService.create(user));
     }
