@@ -1,8 +1,7 @@
-package com.epam.esm.util.mapper.entity;
+package com.epam.esm.util.mapper;
 
 import com.epam.esm.dto.OrderDto;
 import com.epam.esm.entity.Order;
-import com.epam.esm.util.mapper.BaseMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

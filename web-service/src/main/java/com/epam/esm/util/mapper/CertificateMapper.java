@@ -1,8 +1,7 @@
-package com.epam.esm.util.mapper.entity;
+package com.epam.esm.util.mapper;
 
 import com.epam.esm.dto.CertificateDto;
 import com.epam.esm.entity.Certificate;
-import com.epam.esm.util.mapper.BaseMapper;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

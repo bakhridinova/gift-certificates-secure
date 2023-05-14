@@ -6,7 +6,7 @@ import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.repository.OrderRepository;
 import com.epam.esm.service.OrderService;
 import com.epam.esm.util.hateoas.HateoasAdder;
-import com.epam.esm.util.mapper.entity.OrderMapper;
+import com.epam.esm.util.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

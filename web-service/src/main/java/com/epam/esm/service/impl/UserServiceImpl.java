@@ -5,7 +5,7 @@ import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.repository.UserRepository;
 import com.epam.esm.service.UserService;
 import com.epam.esm.util.hateoas.HateoasAdder;
-import com.epam.esm.util.mapper.entity.UserMapper;
+import com.epam.esm.util.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

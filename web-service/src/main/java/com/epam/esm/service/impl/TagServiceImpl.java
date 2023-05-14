@@ -6,7 +6,7 @@ import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.repository.TagRepository;
 import com.epam.esm.service.TagService;
 import com.epam.esm.util.hateoas.HateoasAdder;
-import com.epam.esm.util.mapper.entity.TagMapper;
+import com.epam.esm.util.mapper.TagMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
