@@ -1,6 +1,7 @@
 package com.epam.esm.entity;
 
 import com.epam.esm.listener.AuditListener;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,10 +29,10 @@ import java.util.Date;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name = "orders")
 @EqualsAndHashCode(callSuper = true)
 @EntityListeners(AuditListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "order_id"))
 public class Order extends AbstractEntity {
     @Column(

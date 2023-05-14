@@ -25,32 +25,32 @@ public class AuditListener {
 
     @PrePersist
     private void prePersistAudit(AbstractEntity abstractEntity) {
-        logger.info("{}", getMessage(PRE_PERSIST_OPERATION, abstractEntity));
+        logger.debug("{}", getMessage(PRE_PERSIST_OPERATION, abstractEntity));
     }
 
     @PostPersist
     private void postPersistAudit(AbstractEntity abstractEntity) {
-        logger.info("{}", getMessage(POST_PERSIST_OPERATION, abstractEntity));
+        logger.debug("{}", getMessage(POST_PERSIST_OPERATION, abstractEntity));
     }
 
     @PreUpdate
     private void preUpdateAudit(AbstractEntity abstractEntity) {
-        logger.info("{}", getMessage(PRE_UPDATE_OPERATION, abstractEntity));
+        logger.debug("{}", getMessage(PRE_UPDATE_OPERATION, abstractEntity));
     }
 
     @PostUpdate
     private void postUpdateAudit(AbstractEntity abstractEntity) {
-        logger.info("{}", getMessage(POST_UPDATE_OPERATION, abstractEntity));
+        logger.debug("{}", getMessage(POST_UPDATE_OPERATION, abstractEntity));
     }
 
     @PreRemove
     private void preRemoveAudit(AbstractEntity abstractEntity) {
-        logger.info("{}", getMessage(PRE_REMOVE_OPERATION, abstractEntity));
+        logger.debug("{}", getMessage(PRE_REMOVE_OPERATION, abstractEntity));
     }
 
     @PostRemove
     private void postRemoveAudit(AbstractEntity abstractEntity) {
-        logger.info("{}", getMessage(POST_REMOVE_OPERATION, abstractEntity));
+        logger.debug("{}", getMessage(POST_REMOVE_OPERATION, abstractEntity));
     }
 
     private String getMessage(String operation, AbstractEntity abstractEntity) {

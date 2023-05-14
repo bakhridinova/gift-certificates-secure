@@ -1,16 +1,16 @@
 package com.epam.esm.entity;
 
 import com.epam.esm.listener.AuditListener;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * class representing tag entity
@@ -20,10 +20,10 @@ import jakarta.persistence.Table;
 
 @Data
 @Entity
-@NoArgsConstructor
 @Table(name = "tags")
 @EqualsAndHashCode(callSuper = true)
 @EntityListeners(AuditListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AttributeOverride(name = "id", column = @Column(name = "tag_id"))
 public class Tag extends AbstractEntity {
     @Column(
