@@ -1,7 +1,6 @@
 package com.epam.esm.util.enums.field;
 
 import com.epam.esm.entity.Tag;
-import com.epam.esm.util.enums.EntityField;
 
 /**
  * enum representing tag fields
