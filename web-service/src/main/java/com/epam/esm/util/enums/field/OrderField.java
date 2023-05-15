@@ -1,7 +1,6 @@
 package com.epam.esm.util.enums.field;
 
 import com.epam.esm.entity.Order;
-import com.epam.esm.util.enums.EntityField;
 
 /**
  * enum representing order fields
