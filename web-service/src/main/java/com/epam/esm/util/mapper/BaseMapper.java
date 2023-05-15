@@ -1,6 +1,7 @@
 package com.epam.esm.util.mapper;
 
 import com.epam.esm.dto.Mappable;
+import com.epam.esm.entity.AbstractEntity;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,7 @@ import java.util.List;
  * @author bakhridinova
  */
 
-public interface BaseMapper<T1, T2 extends Mappable> {
+public interface BaseMapper<T1 extends AbstractEntity, T2 extends Mappable> {
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
     T2 toEntityDto(T1 t1);
 
