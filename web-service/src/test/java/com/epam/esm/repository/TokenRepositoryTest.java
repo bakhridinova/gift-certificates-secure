@@ -8,14 +8,18 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * @author bakhridinova
+ */
+
 @DataJpaTest
 @ExtendWith(SpringExtension.class)
-class TagRepositoryTest {
+public class TokenRepositoryTest {
     @Autowired
-    TagRepository tagRepository;
+    TokenRepository tokenRepository;
 
     @Test
     void contextLoads() {
-        assertNotNull(tagRepository);
+        assertNotNull(tokenRepository);
     }
 }

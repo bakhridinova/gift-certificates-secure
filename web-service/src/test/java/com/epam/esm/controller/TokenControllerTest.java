@@ -1,6 +1,6 @@
 package com.epam.esm.controller;
 
-import com.epam.esm.service.OrderService;
+import com.epam.esm.service.TokenService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,17 +11,21 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@WebMvcTest(OrderController.class)
+/**
+ * @author bakhridinova
+ */
+
+@WebMvcTest(TagController.class)
 @ContextConfiguration(classes = AuthenticationManager.class)
-class OrderControllerTest {
+public class TokenControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private OrderService orderService;
+    private TokenService tokenService;
 
     @Test
     void contextLoads() {
-        assertNotNull(orderService);
+        assertNotNull(tokenService);
     }
 }
