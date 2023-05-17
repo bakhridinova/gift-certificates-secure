@@ -5,6 +5,7 @@ import com.epam.esm.dto.UserDto;
 import com.epam.esm.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,15 +47,13 @@ public class UserController {
         return new CustomResponse<>(userService.findById(id));
     }
 
-    /**
-     * handles POST requests for creating new user
-     *
-     * @param user representing new user to be created
-     * @return user that was created
-     */
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public CustomResponse<UserDto> create(@RequestBody UserDto user) {
-        return new CustomResponse<>(userService.create(user));
+    @PostMapping("/register")
+    public CustomResponse<?> signUp(@RequestBody UserDto user) {
+        return new CustomResponse<>(HttpStatus.OK, userService.singUp(user));
+    }
+
+    @PostMapping("/authenticate")
+    public CustomResponse<?> singIn(@RequestBody UserDto user) {
+        return new CustomResponse<>(HttpStatus.OK, userService.signIn(user));
     }
 }

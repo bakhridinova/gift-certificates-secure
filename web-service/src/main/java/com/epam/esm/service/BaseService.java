@@ -12,7 +12,9 @@ import org.springframework.data.domain.Page;
 public interface BaseService<T extends Mappable> {
     Page<T> findAllByPage(int page, int size);
     T findById(Long id);
-    T create(T t);
+    default T create(T t) {
+        throw new UnsupportedOperationException();
+    }
     default String deleteById(Long id) {
         throw new UnsupportedOperationException();
     }

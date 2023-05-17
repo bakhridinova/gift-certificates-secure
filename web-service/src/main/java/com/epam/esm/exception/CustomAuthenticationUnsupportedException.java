@@ -1,12 +1,13 @@
 package com.epam.esm.exception;
 
+import com.epam.esm.security.authentication.provider.CustomAuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
 /**
  * custom exception for unsupported authentication
  *
- * @see com.epam.esm.security.authentication.provider.CustomAuthenticationProvider#authenticate(Authentication)
+ * @see CustomAuthenticationProvider#authenticate(Authentication)
  * @author bakhridinova
  */
 
