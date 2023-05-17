@@ -1,6 +1,6 @@
 package com.epam.esm.entity;
 
-import com.epam.esm.enums.Role;
+import com.epam.esm.enums.UserRole;
 import com.epam.esm.listener.AuditListener;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
@@ -17,7 +17,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * class representing user entity
@@ -35,7 +35,7 @@ import java.util.Date;
 public class User extends AbstractEntity {
     @Column(name = "role")
     @Enumerated(value = EnumType.STRING)
-    private Role role;
+    private UserRole role;
 
     @Column(
             name = "username",
@@ -56,10 +56,10 @@ public class User extends AbstractEntity {
 
     @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Builder
-    public User(Long id, Role role, String username, String password, String firstName, String lastName, String emailAddress, Date birthDate) {
+    public User(Long id, UserRole role, String username, String password, String firstName, String lastName, String emailAddress, LocalDate birthDate) {
         super(id);
         this.role = role;
         this.username = username;

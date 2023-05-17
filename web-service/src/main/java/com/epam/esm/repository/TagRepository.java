@@ -16,6 +16,6 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
                     "       where ct.certificate_id in (select o.certificate_id from orders o" +
                     "           where o.user_id in (select o.user_id from orders o" +
                     "               group by o.user_id order by sum(o.price) desc limit 1))" +
-                    "       group by t.tag_id order by count(t.tag_id) desc limit 1;")
+                    "       group by t.tag_id order by count(t.tag_id) desc limit 1 ;")
     Tag findSpecial();
 }

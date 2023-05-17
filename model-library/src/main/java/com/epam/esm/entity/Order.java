@@ -1,6 +1,6 @@
 package com.epam.esm.entity;
 
-import com.epam.esm.enums.Status;
+import com.epam.esm.enums.OrderStatus;
 import com.epam.esm.listener.AuditListener;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * class representing order entity
@@ -43,12 +43,12 @@ public class Order extends AbstractEntity {
 
     @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
-    private Status status;
+    private OrderStatus status;
 
     @CreationTimestamp
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -59,7 +59,7 @@ public class Order extends AbstractEntity {
     private Certificate certificate;
 
     @Builder
-    public Order(Long id, Double price, Status status, Date createdAt, User user, Certificate certificate) {
+    public Order(Long id, Double price, OrderStatus status, LocalDateTime createdAt, User user, Certificate certificate) {
         super(id);
         this.price = price;
         this.status = status;

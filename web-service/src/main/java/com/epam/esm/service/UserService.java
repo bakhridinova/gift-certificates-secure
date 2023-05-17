@@ -10,5 +10,6 @@ import com.epam.esm.dto.UserDto;
  */
 
 public interface UserService extends BaseService<UserDto> {
-
+    String singUp(UserDto user);
+    String signIn(UserDto user);
 }

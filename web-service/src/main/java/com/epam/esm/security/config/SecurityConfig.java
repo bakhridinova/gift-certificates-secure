@@ -65,9 +65,11 @@ public class SecurityConfig {
     public CommandLineRunner commandLineRunner(UserRepository userRepository,
                                                PasswordEncoder passwordEncoder) {
 
-        return args -> userRepository.findAll().forEach(user -> {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-        });
+        return args -> userRepository
+                .findByPasswordMatchingRegex(BCRYPT_PATTERN.pattern())
+                .forEach(user -> {
+                    user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    userRepository.save(user);
+                });
     }
 }

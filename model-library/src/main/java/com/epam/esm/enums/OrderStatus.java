@@ -6,7 +6,7 @@ package com.epam.esm.enums;
  * @author bakhridinova
  */
 
-public enum Status {
+public enum OrderStatus {
     PENDING,
     CANCELLED,
     PAID
