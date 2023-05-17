@@ -3,7 +3,7 @@ package com.epam.esm.service;
 import com.epam.esm.dto.TagDto;
 import com.epam.esm.repository.TagRepository;
 import com.epam.esm.service.impl.TagServiceImpl;
-import com.epam.esm.util.hateoas.HateoasAdder;
+import com.epam.esm.util.hateoas.BaseHateoasAdder;
 import com.epam.esm.util.mapper.TagMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,7 @@ class TagServiceTest {
     private TagMapper tagMapper;
 
     @Mock
-    private HateoasAdder<TagDto> tagHateoasAdder;
+    private BaseHateoasAdder<TagDto> tagHateoasAdder;
 
     @InjectMocks
     private TagServiceImpl tagService;

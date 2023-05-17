@@ -2,7 +2,7 @@ package com.epam.esm.service;
 
 import com.epam.esm.repository.TokenRepository;
 import com.epam.esm.service.impl.TokenServiceImpl;
-import com.epam.esm.util.hateoas.impl.TokenHateoasAdder;
+import com.epam.esm.util.hateoas.impl.TokenHateoasAdderImpl;
 import com.epam.esm.util.mapper.TokenMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ class TokenServiceTest {
     @Mock
     private TokenMapper tokenMapper;
     @Mock
-    private TokenHateoasAdder tokenHateoasAdder;
+    private TokenHateoasAdderImpl tokenHateoasAdder;
 
     @InjectMocks
     private TokenServiceImpl tokenService;
