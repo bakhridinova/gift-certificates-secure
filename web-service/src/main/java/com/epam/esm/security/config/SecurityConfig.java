@@ -5,11 +5,17 @@ import com.epam.esm.security.authentication.filter.CustomAuthenticationFilter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.regex.Pattern;
 
 /**
  * security configuration
@@ -18,28 +24,24 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 
 @Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
+    private static final Pattern BCRYPT_PATTERN =
+            Pattern.compile("\\A\\$2([ayb])?\\$(\\d\\d)\\$[./0-9A-Za-z]{53}");
+    private static final String[] USER_AUTHENTICATION_POST_ENDPOINTS = {
+            "/api/users/register",
+            "/api/users/authenticate"
+    };
 
-    /**
-     * bean adding custom authentication filter
-     * to security filter chain
-     *
-     * @param httpSecurity HttpSecurity
-     * @param authenticationFilter CustomAuthenticationFilter
-     * @return instance of SecurityFilterChain
-     * @throws Exception if error occurs
-     */
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
-                                                   CustomAuthenticationFilter authenticationFilter)
-            throws Exception {
-
-        return httpSecurity
-                .addFilterAt(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests().anyRequest().authenticated()
-                .and().build();
-    }
-
+    private static final String[] MAIN_ENTITY_GET_ENDPOINTS = {
+            "/api/certificates",
+            "/api/certificates/*",
+            "/api/tags",
+            "/api/tags/*",
+            "/api/tokens",
+            "/api/tokens/*"
+    };
 
     /**
      * bean encrypting user passwords
@@ -49,6 +51,21 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
+                                                   CustomAuthenticationFilter authenticationFilter)
+            throws Exception {
+        return httpSecurity
+                .csrf().disable().authorizeHttpRequests()
+                .requestMatchers(HttpMethod.POST, USER_AUTHENTICATION_POST_ENDPOINTS).permitAll()
+                .requestMatchers(HttpMethod.GET, MAIN_ENTITY_GET_ENDPOINTS).permitAll()
+                .anyRequest().authenticated().and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .addFilterAt(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     /**
@@ -62,9 +79,11 @@ public class SecurityConfig {
     public CommandLineRunner commandLineRunner(UserRepository userRepository,
                                                PasswordEncoder passwordEncoder) {
 
-        return args -> userRepository.findAll().forEach(user -> {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-        });
+        return args -> userRepository
+                .findByPasswordMatchingRegex(BCRYPT_PATTERN.pattern())
+                .forEach(user -> {
+                    user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    userRepository.save(user);
+                });
     }
 }

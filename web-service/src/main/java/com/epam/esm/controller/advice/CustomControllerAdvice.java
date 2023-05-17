@@ -5,6 +5,7 @@ import com.epam.esm.exception.CustomEntityAlreadyExistsException;
 import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.exception.CustomValidationException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -14,7 +15,6 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -56,13 +56,14 @@ public class CustomControllerAdvice extends ResponseEntityExceptionHandler {
                 HttpStatus.METHOD_NOT_ALLOWED, errorMessage.toString()), headers, status);
     }
 
-    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<CustomResponse<?>> handleMethodArgumentTypeMismatchException(
-            MethodArgumentTypeMismatchException ex) {
-        String errorMessage = ex.getName() + " should be of type "
-                + Objects.requireNonNull(ex.getRequiredType()).getName();
-        HttpStatus status = HttpStatus.BAD_REQUEST;
-        return new ResponseEntity<>(new CustomResponse<>(status, errorMessage), status);
+    @Override
+    protected ResponseEntity<Object> handleTypeMismatch(
+            @NonNull TypeMismatchException ex,
+            @NonNull HttpHeaders headers,
+            @NonNull HttpStatusCode status,
+            @NonNull WebRequest request) {
+        String errorMessage = ex.getPropertyName() + " should be of type " + Objects.requireNonNull(ex.getRequiredType()).getSimpleName();
+        return new ResponseEntity<>(new CustomResponse<>(HttpStatus.valueOf(status.value()), errorMessage), status);
     }
 
     @ExceptionHandler({
@@ -73,8 +74,8 @@ public class CustomControllerAdvice extends ResponseEntityExceptionHandler {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         String message = "something went wrong :(";
 
-        if (ex instanceof CustomValidationException
-                || ex instanceof CustomEntityAlreadyExistsException) {
+        if (ex instanceof CustomValidationException ||
+                ex instanceof CustomEntityAlreadyExistsException) {
             status = HttpStatus.BAD_REQUEST;
             message = ex.getMessage();
         }

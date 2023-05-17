@@ -1,13 +1,7 @@
 package com.epam.esm.entity;
 
+import com.epam.esm.enums.OrderStatus;
 import com.epam.esm.listener.AuditListener;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,7 +13,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import java.util.Date;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 /**
  * class representing order entity
@@ -42,12 +43,12 @@ public class Order extends AbstractEntity {
 
     @Column(name = "status")
     @Enumerated(value = EnumType.STRING)
-    private Status status;
+    private OrderStatus status;
 
     @CreationTimestamp
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -58,18 +59,11 @@ public class Order extends AbstractEntity {
     private Certificate certificate;
 
     @Builder
-    public Order(Long id, Double price, Status status, Date createdAt, User user, Certificate certificate) {
+    public Order(Long id, Double price, OrderStatus status, User user, Certificate certificate) {
         super(id);
         this.price = price;
         this.status = status;
-        this.createdAt = createdAt;
         this.user = user;
         this.certificate = certificate;
-    }
-
-    public enum Status {
-        PENDING,
-        CANCELLED,
-        PAID
     }
 }

@@ -1,6 +1,5 @@
 package com.epam.esm.util.enums.field;
 
-import com.epam.esm.util.enums.EntityField;
 import org.springframework.data.domain.Sort;
 
 /**

@@ -1,7 +1,6 @@
 package com.epam.esm.util.enums.field;
 
 import com.epam.esm.entity.User;
-import com.epam.esm.util.enums.EntityField;
 
 /**
  * enum representing user fields

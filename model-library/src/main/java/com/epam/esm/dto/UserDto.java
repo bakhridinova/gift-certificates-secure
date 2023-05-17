@@ -24,7 +24,7 @@ import java.time.LocalDate;
 public class UserDto extends RepresentationModel<UserDto> implements Mappable {
     private Long id;
 
-    private String userRole;
+    private String role;
 
     private String username;
 

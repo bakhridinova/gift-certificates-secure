@@ -1,6 +1,5 @@
-package com.epam.esm.security.authentication;
+package com.epam.esm.security.authentication.bearer;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -8,14 +7,18 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
+/**
+ * class representing bearer authentication
+ *
+ * @author bakhridinova
+ */
 
 @Data
-@Builder
 @RequiredArgsConstructor
-public class CustomAuthentication implements Authentication {
+public class CustomBearerAuthentication implements Authentication {
     private final boolean authenticated;
-    private final String username;
-    private final String password;
+    private final String token;
+    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public boolean isAuthenticated() {
@@ -24,7 +27,7 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override

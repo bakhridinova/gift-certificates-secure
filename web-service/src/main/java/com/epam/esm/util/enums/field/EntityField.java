@@ -1,4 +1,4 @@
-package com.epam.esm.util.enums;
+package com.epam.esm.util.enums.field;
 
 /**
  * marker interface for different entity field names

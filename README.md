@@ -1,18 +1,42 @@
 # Gift Certificates Secure API
 
-this API allows you to do create, update, update and delete (aka CRUD) operations on entities
+this API allows you to do create, update, update and delete (aka CRUD) operations on entities depending on your role
+it supports Basic and Bearer Authentication types
 
-| Entity      |  C  |  R  |  U  |  D  |
-|:------------|:---:|:---:|:---:|:---:|
-| Certificate |  +  |  +  |  +  |  +  |
-| Tag         |  +  |  +  |  -  |  +  |
-| Order       |  +  |  +  |  +  |  -  |
-| User        |  +  |  +  |  -  |  -  |
+## GUEST:
+
+| Entity      | C | R | U | D |
+|:------------|:-:|:-:|:-:|:-:|
+| Certificate | - | + | - | - |
+| Order       | - | - | - | - |
+| Tag         | - | + | - | - |
+| Token       | - | - | - | - |
+| User        | - | - | - | - |
+
+## USER
+
+| Entity      | C | R | U | D |
+|:------------|:-:|:-:|:-:|:-:|
+| Certificate | - | + | - | - |
+| Order       | - | + | + | - |
+| Tag         | - | + | - | - |
+| Token       | + | + | - | - |
+| User        | - | + | - | - |
+
+## ADMIN
+
+| Entity      | C | R | U | D |
+|:------------|:-:|:-:|:-:|:-:|
+| Certificate | + | + | + | + |
+| Order       | + | + | + | - |
+| Tag         | + | + | + | + |
+| Token       | + | + | - | + |
+| User        | + | + | - | - |
 
 ## Set up 
 - [*clone*](https://github.com/bakhridinova/gift-certificates-secure.git) the project
-- change [application.properties](controller/src/main/resources/application.properties) file based on your database configurations
-- run the project using [GiftCertificatesSecureApplication.java](controller/src/main/java/com/epam/esm/GiftCertificatesAdvancedApplication.java) 
+- change [application.yml](web-service/src/main/resources/application.yml) file based on your database configurations
+- run the project using [GiftCertificatesSecureApplication.java](web-service/src/main/java/com/epam/esm/GiftCertificatesSecureApplication.java) 
 
 # API Reference 
 
@@ -35,6 +59,8 @@ request parameters:
 **GET** `/api/tags`
   returns list of tags  
 
+**GET** `/api/tokens`
+returns list of tokens
 
 **GET** `/api/users`
   returns list of users
@@ -52,22 +78,57 @@ request parameters:
 **GET** `/api/tags/{id}`
   returns tag by given id if one exists
 
+**GET** `/api/tokens/{id}`
+returns token by given id if one exists
 
 **GET** `/api/users/{id}`
   returns user by given id if one exists
 
-## Get orders
+## Registration and Authentication
+
+```agsl
+request body:
+        {
+            "username": "",
+            "password": ""
+        }
+```
+
+**POST** `/api/users/register`
+
+```agsl
+request body:
+        {
+            "username": "",
+            "password": ""
+        }
+```
+
+**POST** `/api/users/authenticate`
+
+## Get user's orders
 
 ```agsl
 request parameters:
     int page (defaultValue 1)
     int size (defaultValue 5)
     long userId 
-    long certificateId 
 ```
 
 **GET** `/api/orders/search`
-returns orders of user or certificate by given id if one exists
+returns orders of user by given id if one exists
+
+## Get user's tokens
+
+```agsl
+request parameters:
+    int page (defaultValue 1)
+    int size (defaultValue 5)
+    long userId 
+```
+
+**GET** `/api/orders/search`
+returns tokens of user by given id if one exists
 
 ## Get special tag
 
@@ -113,6 +174,7 @@ request body:
             "duration": 0,
             "tags": [
                 {
+                    "id": "",
                     "name": ""
                 }
             ] 
@@ -152,6 +214,12 @@ request body:
         }
 ```
 
+**PATCH** `/api/orders/{id}/pay`
+returns updated order with PAID status
+
+**PATCH** `/api/orders/{id}/cancel`
+returns updated order CANCELLED status
+
 
 ## Delete entity
 **DELETE** `/api/certificates/{id}`
@@ -163,9 +231,4 @@ deletes tag by given id if one exists
 
 entity relationship diagram
 
-<img src="https://user-images.githubusercontent.com/100201504/230478278-9b82ee50-bf41-4ef0-9324-d41755d5178b.png" alt=""/>
-
-
-## Entity statistics
-**GET** '/api/actuator/stats'
-returns total number of different entities in entity tables
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/100201504/239057032-5b031c7e-b679-44cc-9233-b21fe8d2857e.png" alt=""/>

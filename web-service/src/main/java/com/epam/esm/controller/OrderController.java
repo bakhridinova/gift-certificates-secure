@@ -5,6 +5,7 @@ import com.epam.esm.dto.OrderDto;
 import com.epam.esm.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,9 +26,10 @@ public class OrderController {
      *
      * @param page page number requested (default is 0)
      * @param size number of items per page (default is 5)
-     * @return List of orders
+     * @return page of orders
      */
     @GetMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Page<OrderDto> getAllByPage(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "5") int size) {
        return orderService.findAllByPage(page, size);
@@ -40,6 +42,7 @@ public class OrderController {
      * @return specified order
      */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> getById(@PathVariable Long id) {
        return new CustomResponse<>(orderService.findById(id));
     }
@@ -51,6 +54,7 @@ public class OrderController {
      * @return specified order
      */
     @PatchMapping("/{id}/pay")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> payById(@PathVariable Long id) {
         return new CustomResponse<>(orderService.payById(id));
     }
@@ -62,6 +66,7 @@ public class OrderController {
      * @return specified order
      */
     @PatchMapping("/{id}/cancel")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> cancelById(@PathVariable Long id) {
         return new CustomResponse<>(orderService.cancelById(id));
     }
@@ -73,6 +78,7 @@ public class OrderController {
      * @return order that was created
      */
     @PostMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> create(@RequestBody OrderDto order) {
         return new CustomResponse<>(orderService.create(order));
     }
@@ -83,9 +89,10 @@ public class OrderController {
      * @param userId ID of user for which to retrieve orders
      * @param page page number requested (default is 0)
      * @param size number of items per page (default is 5)
-     * @return List of orders associated with certificate
+     * @return page of orders associated with user
      */
     @GetMapping("/search")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Page<OrderDto> getByUserId(@RequestParam(required = false) Long userId,
                                       @RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "5") int size) {

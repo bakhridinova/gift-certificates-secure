@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -53,12 +53,12 @@ public class Certificate extends AbstractEntity {
     @CreationTimestamp
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "last_updated_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdatedAt;
+    private LocalDateTime lastUpdatedAt;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -73,14 +73,12 @@ public class Certificate extends AbstractEntity {
     private List<Tag> tags;
 
     @Builder
-    public Certificate(Long id, String name, String description, Double price, Integer duration, Date createdAt, Date lastUpdatedAt, User user, List<Tag> tags) {
+    public Certificate(Long id, String name, String description, Double price, Integer duration, User user, List<Tag> tags) {
         super(id);
         this.name = name;
         this.description = description;
         this.price = price;
         this.duration = duration;
-        this.createdAt = createdAt;
-        this.lastUpdatedAt = lastUpdatedAt;
         this.user = user;
         this.tags = tags;
     }

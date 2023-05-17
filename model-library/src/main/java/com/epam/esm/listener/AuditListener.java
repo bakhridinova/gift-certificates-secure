@@ -1,15 +1,15 @@
 package com.epam.esm.listener;
 
 import com.epam.esm.entity.AbstractEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import jakarta.persistence.PostPersist;
 import jakarta.persistence.PostRemove;
 import jakarta.persistence.PostUpdate;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import jakarta.persistence.PreUpdate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Date;
 
 public class AuditListener {

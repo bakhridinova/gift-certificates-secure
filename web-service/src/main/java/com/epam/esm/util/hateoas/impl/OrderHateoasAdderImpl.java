@@ -4,12 +4,12 @@ import com.epam.esm.controller.CertificateController;
 import com.epam.esm.controller.OrderController;
 import com.epam.esm.controller.UserController;
 import com.epam.esm.dto.OrderDto;
-import com.epam.esm.util.hateoas.HateoasAdder;
+import com.epam.esm.util.hateoas.OrderHateoasAdder;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderHateoasAdder implements HateoasAdder<OrderDto> {
+public class OrderHateoasAdderImpl implements OrderHateoasAdder {
 
     @Override
     public void addLinksToEntity(OrderDto order) {
