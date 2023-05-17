@@ -1,11 +1,11 @@
 package com.epam.esm.controller;
 
 import com.epam.esm.controller.response.CustomResponse;
+import com.epam.esm.dto.TokenDto;
 import com.epam.esm.dto.UserDto;
 import com.epam.esm.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,11 +22,11 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * GET endpoint to retrieve list of users
+     * GET endpoint to retrieve page of users
      *
      * @param page page number requested (default is 0)
      * @param size number of items per page (default is 5)
-     * @return List of users
+     * @return page of users
      */
     @GetMapping
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
@@ -48,12 +48,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public CustomResponse<?> signUp(@RequestBody UserDto user) {
-        return new CustomResponse<>(HttpStatus.OK, userService.singUp(user));
+    public CustomResponse<TokenDto> signUp(@RequestBody UserDto user) {
+        return new CustomResponse<>(userService.singUp(user));
     }
 
     @PostMapping("/authenticate")
-    public CustomResponse<?> singIn(@RequestBody UserDto user) {
-        return new CustomResponse<>(HttpStatus.OK, userService.signIn(user));
+    public CustomResponse<TokenDto> singIn(@RequestBody UserDto user) {
+        return new CustomResponse<>(userService.signIn(user));
     }
 }

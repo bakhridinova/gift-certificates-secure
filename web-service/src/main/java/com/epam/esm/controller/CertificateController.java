@@ -25,7 +25,7 @@ public class CertificateController {
     private final CertificateService certificateService;
 
     /**
-     * GET endpoint to retrieve list of certificates
+     * GET endpoint to retrieve page of certificates
      *
      * @param page page number requested (default is 0)
      * @param size number of items per page (default is 5)
@@ -54,7 +54,7 @@ public class CertificateController {
      * @param page page number requested (default is 0)
      * @param size number of items per page (default is 5)
      * @param searchFilter holding search parameters
-     * @return List of certificates based on provided search parameters
+     * @return page of certificates based on provided search parameters
      */
     @PostMapping("/search")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")

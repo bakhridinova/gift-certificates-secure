@@ -26,7 +26,7 @@ public class OrderController {
      *
      * @param page page number requested (default is 0)
      * @param size number of items per page (default is 5)
-     * @return List of orders
+     * @return page of orders
      */
     @GetMapping
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
@@ -89,7 +89,7 @@ public class OrderController {
      * @param userId ID of user for which to retrieve orders
      * @param page page number requested (default is 0)
      * @param size number of items per page (default is 5)
-     * @return List of orders associated with certificate
+     * @return page of orders associated with user
      */
     @GetMapping("/search")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")

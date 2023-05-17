@@ -74,8 +74,8 @@ public class CustomControllerAdvice extends ResponseEntityExceptionHandler {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         String message = "something went wrong :(";
 
-        if (ex instanceof CustomValidationException
-                || ex instanceof CustomEntityAlreadyExistsException) {
+        if (ex instanceof CustomValidationException ||
+                ex instanceof CustomEntityAlreadyExistsException) {
             status = HttpStatus.BAD_REQUEST;
             message = ex.getMessage();
         }
