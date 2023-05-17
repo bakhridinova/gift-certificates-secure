@@ -1,6 +1,7 @@
 package com.epam.esm.service;
 
 
+import com.epam.esm.dto.TokenDto;
 import com.epam.esm.dto.UserDto;
 
 /**
@@ -10,6 +11,6 @@ import com.epam.esm.dto.UserDto;
  */
 
 public interface UserService extends BaseService<UserDto> {
-    String singUp(UserDto user);
-    String signIn(UserDto user);
+    TokenDto singUp(UserDto user);
+    TokenDto signIn(UserDto user);
 }

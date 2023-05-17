@@ -1,6 +1,7 @@
 package com.epam.esm.security.authentication.filter;
 
-import com.epam.esm.security.authentication.CustomBearerAuthentication;
+import com.epam.esm.security.authentication.basic.CustomBasicAuthentication;
+import com.epam.esm.security.authentication.bearer.CustomBearerAuthentication;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -38,19 +38,23 @@ public class CustomAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
 
-        if (authorizationHeader == null ||
-                !authorizationHeader.startsWith(BASIC_AUTHORIZATION_HEADER_PREFIX) ||
-                !authorizationHeader.startsWith(BEARER_AUTHORIZATION_HEADER_PREFIX)) {
+        if (authorizationHeader == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        Authentication authentication = authenticationManager.authenticate(
-                new CustomBearerAuthentication(false, authorizationHeader
-                        .substring(authorizationHeader.length() + 1)));
+        if (authorizationHeader.startsWith(BASIC_AUTHORIZATION_HEADER_PREFIX)) {
+            SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(
+                    new CustomBasicAuthentication(false, authorizationHeader
+                            .substring(BASIC_AUTHORIZATION_HEADER_PREFIX.length() + 1))));
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-        if (authentication.isAuthenticated()) {
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        if (authorizationHeader.startsWith(BEARER_AUTHORIZATION_HEADER_PREFIX)) {
+            SecurityContextHolder.getContext().setAuthentication(authenticationManager.authenticate(
+                    new CustomBearerAuthentication(false, authorizationHeader
+                            .substring(BEARER_AUTHORIZATION_HEADER_PREFIX.length() + 1))));
             filterChain.doFilter(request, response);
         }
     }

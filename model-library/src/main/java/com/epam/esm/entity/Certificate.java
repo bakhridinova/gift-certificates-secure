@@ -73,14 +73,12 @@ public class Certificate extends AbstractEntity {
     private List<Tag> tags;
 
     @Builder
-    public Certificate(Long id, String name, String description, Double price, Integer duration, LocalDateTime createdAt, LocalDateTime lastUpdatedAt, User user, List<Tag> tags) {
+    public Certificate(Long id, String name, String description, Double price, Integer duration, User user, List<Tag> tags) {
         super(id);
         this.name = name;
         this.description = description;
         this.price = price;
         this.duration = duration;
-        this.createdAt = createdAt;
-        this.lastUpdatedAt = lastUpdatedAt;
         this.user = user;
         this.tags = tags;
     }

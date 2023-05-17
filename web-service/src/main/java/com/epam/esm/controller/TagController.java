@@ -23,11 +23,11 @@ public class TagController {
     private final TagService tagService;
 
     /**
-     * GET endpoint to retrieve list of tags
+     * GET endpoint to retrieve page of tags
      *
      * @param page page number requested (default is 0)
      * @param size number of items per page (default is 5)
-     * @return List of tags
+     * @return page of tags
      */
     @GetMapping
     public Page<TagDto> getAllByPage(@RequestParam(defaultValue = "0") int page,

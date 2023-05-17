@@ -59,11 +59,10 @@ public class Order extends AbstractEntity {
     private Certificate certificate;
 
     @Builder
-    public Order(Long id, Double price, OrderStatus status, LocalDateTime createdAt, User user, Certificate certificate) {
+    public Order(Long id, Double price, OrderStatus status, User user, Certificate certificate) {
         super(id);
         this.price = price;
         this.status = status;
-        this.createdAt = createdAt;
         this.user = user;
         this.certificate = certificate;
     }

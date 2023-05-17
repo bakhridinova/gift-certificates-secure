@@ -6,7 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,7 +29,7 @@ import java.util.regex.Pattern;
 public class SecurityConfig {
     private static final Pattern BCRYPT_PATTERN =
             Pattern.compile("\\A\\$2([ayb])?\\$(\\d\\d)\\$[./0-9A-Za-z]{53}");
-    private static final String[] AUTHENTICATION_POST_ENDPOINTS = {
+    private static final String[] USER_AUTHENTICATION_POST_ENDPOINTS = {
             "/api/users/register",
             "/api/users/authenticate"
     };
@@ -39,7 +38,9 @@ public class SecurityConfig {
             "/api/certificates",
             "/api/certificates/*",
             "/api/tags",
-            "/api/tags/*"
+            "/api/tags/*",
+            "/api/tokens",
+            "/api/tokens/*"
     };
 
     /**
@@ -54,17 +55,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
-                                                   AuthenticationProvider authenticationProvider,
                                                    CustomAuthenticationFilter authenticationFilter)
             throws Exception {
         return httpSecurity
                 .csrf().disable().authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, AUTHENTICATION_POST_ENDPOINTS).permitAll()
+                .requestMatchers(HttpMethod.POST, USER_AUTHENTICATION_POST_ENDPOINTS).permitAll()
                 .requestMatchers(HttpMethod.GET, MAIN_ENTITY_GET_ENDPOINTS).permitAll()
                 .anyRequest().authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authenticationProvider(authenticationProvider)
                 .addFilterAt(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

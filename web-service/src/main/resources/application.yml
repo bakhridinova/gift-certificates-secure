@@ -1,22 +1,21 @@
 server:
-  port: 8081
+    port: 8081
 
 logging:
-  level:
-    org.springframework.context: info
+    level:
+        org.springframework.context: info
 
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/certificates-secure
-    username: postgres
-    password: password
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: validate
+    datasource:
+        url: jdbc:postgresql://localhost:5432/certificates-secure
+        username: postgres
+        password: password
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: validate
 
 application:
-  security:
-    jwt:
-      secret-key: '5468576D5A7133743677397A24432646294A404E635266556A586E3272357537'
-      expiration: 900000
+    security:
+        jwt:
+            secret-key: '5468576D5A7133743677397A24432646294A404E635266556A586E3272357537'
