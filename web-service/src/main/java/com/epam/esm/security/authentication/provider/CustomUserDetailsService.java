@@ -1,13 +1,19 @@
-package com.epam.esm.security.service;
+package com.epam.esm.security.authentication.provider;
 
 import com.epam.esm.exception.CustomUsernameNotFoundException;
 import com.epam.esm.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+/**
+ * custom user details service loading user data from database
+ *
+ * @see CustomAuthenticationProvider#userDetailsService
+ * @author bakhridinova
+ */
 
 @Component
 @RequiredArgsConstructor
@@ -16,9 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .map(user -> User.withUsername(user.getUsername()).password(user.getPassword())
-                        .roles(user.getRole().toString()).build())
-                .orElseThrow(() -> new CustomUsernameNotFoundException(username));
+        return new CustomUserDetails(userRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomUsernameNotFoundException(username)));
     }
 }
