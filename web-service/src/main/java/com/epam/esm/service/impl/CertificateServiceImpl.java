@@ -8,7 +8,7 @@ import com.epam.esm.repository.TagRepository;
 import com.epam.esm.service.CertificateService;
 import com.epam.esm.util.enums.field.CertificateField;
 import com.epam.esm.util.filter.SearchFilter;
-import com.epam.esm.util.hateoas.HateoasAdder;
+import com.epam.esm.util.hateoas.CertificateHateoasAdder;
 import com.epam.esm.util.mapper.CertificateMapper;
 import com.epam.esm.util.mapper.TagMapper;
 import com.epam.esm.util.validator.CustomCertificateValidator;
@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CertificateServiceImpl implements CertificateService {
     private final CertificateRepository certificateRepository;
     private final CertificateMapper certificateMapper;
-    private final HateoasAdder<CertificateDto> certificateHateoasAdder;
+    private final CertificateHateoasAdder certificateHateoasAdder;
     private final TagRepository tagRepository;
     private final TagMapper tagMapper;
 

@@ -3,12 +3,12 @@ package com.epam.esm.util.hateoas.impl;
 import com.epam.esm.controller.OrderController;
 import com.epam.esm.controller.UserController;
 import com.epam.esm.dto.UserDto;
-import com.epam.esm.util.hateoas.HateoasAdder;
+import com.epam.esm.util.hateoas.UserHateoasAdder;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserHateoasAdder implements HateoasAdder<UserDto> {
+public class UserHateoasAdderImpl implements UserHateoasAdder {
 
     @Override
     public void addLinksToEntity(UserDto user) {

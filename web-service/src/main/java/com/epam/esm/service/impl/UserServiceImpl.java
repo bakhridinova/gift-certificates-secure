@@ -14,7 +14,8 @@ import com.epam.esm.security.authentication.service.CustomUserDetails;
 import com.epam.esm.security.authentication.service.JwtService;
 import com.epam.esm.service.UserService;
 import com.epam.esm.util.enums.field.UserField;
-import com.epam.esm.util.hateoas.HateoasAdder;
+import com.epam.esm.util.hateoas.TokenHateoasAdder;
+import com.epam.esm.util.hateoas.UserHateoasAdder;
 import com.epam.esm.util.mapper.TokenMapper;
 import com.epam.esm.util.mapper.UserMapper;
 import com.epam.esm.util.validator.CustomPageValidator;
@@ -35,10 +36,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final HateoasAdder<UserDto> userHateoasAdder;
+    private final UserHateoasAdder userHateoasAdder;
     private final TokenRepository tokenRepository;
     private final TokenMapper tokenMapper;
-    private final HateoasAdder<TokenDto> tokenHateoasAdder;
+    private final TokenHateoasAdder tokenHateoasAdder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 

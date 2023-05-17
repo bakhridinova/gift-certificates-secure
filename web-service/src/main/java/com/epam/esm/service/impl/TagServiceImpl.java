@@ -7,7 +7,7 @@ import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.repository.TagRepository;
 import com.epam.esm.service.TagService;
 import com.epam.esm.util.enums.field.TagField;
-import com.epam.esm.util.hateoas.HateoasAdder;
+import com.epam.esm.util.hateoas.TagHateoasAdder;
 import com.epam.esm.util.mapper.TagMapper;
 import com.epam.esm.util.validator.CustomPageValidator;
 import com.epam.esm.util.validator.CustomTagValidator;
@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TagServiceImpl implements TagService {
     private final TagRepository tagRepository;
     private final TagMapper tagMapper;
-    private final HateoasAdder<TagDto> tagHateoasAdder;
+    private final TagHateoasAdder tagHateoasAdder;
 
     @Override
     public Page<TagDto> findAllByPage(int page, int size) {

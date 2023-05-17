@@ -9,7 +9,7 @@ import com.epam.esm.service.OrderService;
 import com.epam.esm.util.enums.field.CertificateField;
 import com.epam.esm.util.enums.field.OrderField;
 import com.epam.esm.util.enums.field.UserField;
-import com.epam.esm.util.hateoas.HateoasAdder;
+import com.epam.esm.util.hateoas.OrderHateoasAdder;
 import com.epam.esm.util.mapper.OrderMapper;
 import com.epam.esm.util.validator.CustomPageValidator;
 import com.epam.esm.util.validator.CustomValidator;
@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
-    private final HateoasAdder<OrderDto> orderHateoasAdder;
+    private final OrderHateoasAdder orderHateoasAdder;
 
     @Override
     public Page<OrderDto> findAllByPage(int page, int size) {

@@ -7,7 +7,7 @@ import com.epam.esm.exception.CustomEntityNotFoundException;
 import com.epam.esm.repository.TokenRepository;
 import com.epam.esm.service.TokenService;
 import com.epam.esm.util.enums.field.CertificateField;
-import com.epam.esm.util.hateoas.impl.TokenHateoasAdder;
+import com.epam.esm.util.hateoas.TokenHateoasAdder;
 import com.epam.esm.util.mapper.TokenMapper;
 import com.epam.esm.util.validator.CustomPageValidator;
 import com.epam.esm.util.validator.CustomValidator;
@@ -35,6 +35,7 @@ public class TokenServiceImpl implements TokenService {
         for (Token token : tokenRepository
                 .findByCreatedAtBefore(fiveMinutesBeforeNow)) {
             token.setExpired(true);
+            tokenRepository.save(token);
         }
     }
 

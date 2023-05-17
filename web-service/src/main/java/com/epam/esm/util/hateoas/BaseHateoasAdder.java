@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
  * @author bakhridinova
  */
 
-public interface HateoasAdder<T extends Mappable> {
+public interface BaseHateoasAdder<T extends Mappable> {
     void addLinksToEntity(T entity);
 
     default void addLinksToEntityPage(Page<T> entities) {

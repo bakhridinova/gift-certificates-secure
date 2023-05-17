@@ -6,7 +6,7 @@ import com.epam.esm.repository.TokenRepository;
 import com.epam.esm.repository.UserRepository;
 import com.epam.esm.security.authentication.service.JwtService;
 import com.epam.esm.service.impl.UserServiceImpl;
-import com.epam.esm.util.hateoas.HateoasAdder;
+import com.epam.esm.util.hateoas.BaseHateoasAdder;
 import com.epam.esm.util.mapper.TokenMapper;
 import com.epam.esm.util.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
@@ -30,9 +30,9 @@ class UserServiceTest {
     private TokenMapper tokenMapper;
 
     @Mock
-    private HateoasAdder<UserDto> userHateoasAdder;
+    private BaseHateoasAdder<UserDto> userHateoasAdder;
     @Mock
-    private HateoasAdder<TokenDto> tokenHateoasAdder;
+    private BaseHateoasAdder<TokenDto> tokenHateoasAdder;
     @Mock
     private AuthenticationManager authenticationManager;
     @Mock

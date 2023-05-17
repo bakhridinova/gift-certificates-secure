@@ -4,7 +4,7 @@ import com.epam.esm.dto.CertificateDto;
 import com.epam.esm.repository.CertificateRepository;
 import com.epam.esm.repository.TagRepository;
 import com.epam.esm.service.impl.CertificateServiceImpl;
-import com.epam.esm.util.hateoas.HateoasAdder;
+import com.epam.esm.util.hateoas.BaseHateoasAdder;
 import com.epam.esm.util.mapper.CertificateMapper;
 import com.epam.esm.util.mapper.TagMapper;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ class CertificateServiceTest {
     private TagMapper tagMapper;
 
     @Mock
-    private HateoasAdder<CertificateDto> certificateHateoasAdder;
+    private BaseHateoasAdder<CertificateDto> certificateHateoasAdder;
 
     @InjectMocks
     private CertificateServiceImpl certificateService;

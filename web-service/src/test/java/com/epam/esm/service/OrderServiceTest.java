@@ -3,7 +3,7 @@ package com.epam.esm.service;
 import com.epam.esm.dto.OrderDto;
 import com.epam.esm.repository.OrderRepository;
 import com.epam.esm.service.impl.OrderServiceImpl;
-import com.epam.esm.util.hateoas.HateoasAdder;
+import com.epam.esm.util.hateoas.BaseHateoasAdder;
 import com.epam.esm.util.mapper.OrderMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +21,7 @@ class OrderServiceTest {
     private OrderMapper orderMapper;
 
     @Mock
-    private HateoasAdder<OrderDto> orderHateoasAdder;
+    private BaseHateoasAdder<OrderDto> orderHateoasAdder;
 
     @InjectMocks
     private OrderServiceImpl orderService;
