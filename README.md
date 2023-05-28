@@ -1,7 +1,7 @@
 # Gift Certificates Secure API
 
-this API allows you to do create, update, update and delete (aka CRUD) operations on entities depending on your role
-it supports Basic and Bearer Authentication types
+this API allows you to create, update, update and delete (aka CRUD) operations on entities depending on your role.
+It supports Basic and Bearer Authentication types
 
 ## GUEST:
 
@@ -231,4 +231,4 @@ deletes tag by given id if one exists
 
 entity relationship diagram
 
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/100201504/239057032-5b031c7e-b679-44cc-9233-b21fe8d2857e.png" alt=""/>
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/100201504/239770175-32943372-edaf-4be5-84ae-3d6b654a50b8.png" alt=""/>

@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 /**
- * class representing user entity
+ * Class representing user entity
  *
  * @author bakhridinova
  */

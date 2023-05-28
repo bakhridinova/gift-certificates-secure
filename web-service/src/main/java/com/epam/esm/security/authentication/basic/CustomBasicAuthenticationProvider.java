@@ -1,6 +1,6 @@
 package com.epam.esm.security.authentication.basic;
 
-import com.epam.esm.exception.CustomAuthenticationFailedException;
+import com.epam.esm.exception.AuthenticationFailedException;
 import com.epam.esm.security.authentication.manager.CustomAuthenticationManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
- * custom authentication provider validating
+ * Custom authentication provider validating
  * basic authentication
  *
  * @see CustomAuthenticationManager#authenticationProviders
@@ -34,7 +34,7 @@ public class CustomBasicAuthenticationProvider implements AuthenticationProvider
                     .loadUserByUsername(basicAuthentication.getUsername());
 
             if (!passwordEncoder.matches(basicAuthentication.getPassword(), userDetails.getPassword())) {
-                throw new CustomAuthenticationFailedException(basicAuthentication.getUsername());
+                throw new AuthenticationFailedException(basicAuthentication.getUsername());
             }
 
             basicAuthentication.setAuthenticated(true);

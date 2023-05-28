@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * class representing data transfer object for certificate
+ * Class representing data transfer object for certificate
  *
  * @author bakhridinova
  */

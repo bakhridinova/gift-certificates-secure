@@ -1,7 +1,7 @@
 package com.epam.esm.enums;
 
 /**
- * enum representing order statuses
+ * Enum representing order statuses
  *
  * @author bakhridinova
  */

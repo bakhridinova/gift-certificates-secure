@@ -17,7 +17,7 @@ public class CustomizedCertificateRepositoryImpl implements CustomizedCertificat
     private final EntityManager entityManager;
 
     @Override
-    public List<Certificate> findByFilterAndPage(SearchFilter searchFilter) {
+    public List<Certificate> findByFilter(SearchFilter searchFilter) {
         JPAStreamer jpaStreamer = JPAStreamer.of(entityManager.getEntityManagerFactory());
         return jpaStreamer.stream(Certificate.class)
                 .filter(certificate -> certificate.getName().contains(searchFilter.name())

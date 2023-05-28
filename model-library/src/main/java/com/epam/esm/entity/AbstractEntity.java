@@ -8,6 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Abstract class representing entity with identity
+ *
+ * @author bakhridinova
+ */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

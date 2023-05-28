@@ -1,12 +1,12 @@
 package com.epam.esm.util.validator;
 
-import com.epam.esm.dto.UserDto;
-import com.epam.esm.exception.CustomValidationException;
+import com.epam.esm.entity.User;
+import com.epam.esm.exception.ValidationException;
 import com.epam.esm.util.enums.field.UserField;
 import lombok.experimental.UtilityClass;
 
 /**
- * utility class validating users
+ * Utility class validating users
  *
  * @author bakhridinova
  */
@@ -14,12 +14,13 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CustomUserValidator {
     /**
-     * validates user to ensure that it's parameters are valid
+     * Validates user credentials to ensure that they are not null, blank,
+     * of needed length and match specific pattern
      *
      * @param user to validate
-     * @throws CustomValidationException if any of user parameters are not valid
+     * @throws ValidationException if any of user parameters are not valid
      */
-    public void validate(UserDto user) {
+    public void validate(User user) {
         validateUsername(user.getUsername());
         validatePassword(user.getPassword());
     }

@@ -8,7 +8,7 @@ import lombok.Getter;
 import org.springframework.hateoas.RepresentationModel;
 
 /**
- * class representing data transfer object for tag
+ * Class representing data transfer object for tag
  *
  * @author bakhridinova
  */

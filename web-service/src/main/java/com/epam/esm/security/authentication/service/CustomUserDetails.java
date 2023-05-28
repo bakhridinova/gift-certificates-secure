@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * custom user details holding user credentials and authorities
+ * Custom user details holding user credentials and authorities
  *
  * @see CustomUserDetailsService#loadUserByUsername(String)
  * @author bakhridinova

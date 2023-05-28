@@ -2,7 +2,7 @@ package com.epam.esm.controller;
 
 import com.epam.esm.controller.response.CustomResponse;
 import com.epam.esm.dto.TagDto;
-import com.epam.esm.service.TagService;
+import com.epam.esm.facade.TagFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/tags")
+@RequestMapping("/api/v1/tags")
 public class TagController {
-    private final TagService tagService;
+    private final TagFacade tagFacade;
 
     /**
      * GET endpoint to retrieve page of tags
@@ -32,7 +32,7 @@ public class TagController {
     @GetMapping
     public Page<TagDto> getAllByPage(@RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "5") int size) {
-       return tagService.findAllByPage(page, size);
+       return tagFacade.findAllByPage(page, size);
     }
 
     /**
@@ -43,7 +43,7 @@ public class TagController {
      */
     @GetMapping("/{id}")
     public CustomResponse<TagDto> getById(@PathVariable Long id) {
-        return new CustomResponse<>(tagService.findById(id));
+        return new CustomResponse<>(tagFacade.findById(id));
     }
 
 
@@ -56,11 +56,11 @@ public class TagController {
     @GetMapping("/special")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<TagDto> getSpecial() {
-        return new CustomResponse<>(tagService.findSpecial());
+        return new CustomResponse<>(tagFacade.findSpecial());
     }
 
     /**
-     * handles POST requests for creating new tag
+     * POST endpoint for creating new tag
      *
      * @param tag representing new tag to be created
      * @return tag that was created
@@ -68,11 +68,11 @@ public class TagController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public CustomResponse<TagDto> create(@RequestBody TagDto tag) {
-        return new CustomResponse<>(tagService.create(tag));
+        return new CustomResponse<>(tagFacade.create(tag));
     }
 
     /**
-     * handles DELETE requests for deleting specific tag
+     * DELETE endpoint for deleting specific tag
      *
      * @param id of tag to delete
      * @return message expressing that tag was successfully deleted
@@ -80,6 +80,7 @@ public class TagController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public CustomResponse<?> deleteById(@PathVariable Long id) {
-        return new CustomResponse<>(HttpStatus.OK, tagService.deleteById(id));
+        tagFacade.deleteById(id);
+        return new CustomResponse<>(HttpStatus.OK, "tag was successfully deleted");
     }
 }

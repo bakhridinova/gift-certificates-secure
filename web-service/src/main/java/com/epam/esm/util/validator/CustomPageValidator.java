@@ -1,11 +1,11 @@
 package com.epam.esm.util.validator;
 
-import com.epam.esm.exception.CustomValidationException;
+import com.epam.esm.exception.ValidationException;
 import com.epam.esm.util.enums.field.PageField;
 import lombok.experimental.UtilityClass;
 
 /**
- * utility class validating pagination details
+ * Utility class validating pagination details
  *
  * @author bakhridinova
  */
@@ -13,12 +13,12 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class CustomPageValidator {
     /**
-     * validates pagination parameters for a search operation to ensure that
+     * Validates pagination parameters for a search operation to ensure that
      * they contain only digits, are not negative and are between upper and lower bounds
      *
      * @param page int page number to validate
      * @param size int page size to validate
-     * @throws CustomValidationException if any of pagination parameters are not valid
+     * @throws ValidationException if any of pagination parameters are not valid
      */
     public void validate(int page, int size) {
         validatePage(page);

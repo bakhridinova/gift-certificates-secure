@@ -1,12 +1,14 @@
 package com.epam.esm.util.filter;
 
 import com.epam.esm.entity.Tag;
-import lombok.Builder;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.Set;
 
 /**
- * record representing search filter
+ * Record representing search filter
  *
  * @param name String text from name to use for search results
  * @param description String text from description to use for search results
@@ -16,7 +18,7 @@ import java.util.Set;
  *
  * @author bakhridinova
  */
-@Builder
+
 public record SearchFilter(String name, String description,
                            String sortProperty, String sortOrder,
                            Set<Tag> tags) {
@@ -34,6 +36,11 @@ public record SearchFilter(String name, String description,
 
     public String sortProperty() {
         return sortProperty == null ? "id" : sortProperty;
+    }
+
+    public Pageable pageableWithSort(int page, int size) {
+        return PageRequest.of(page, size).withSort(Sort.by(Sort.Direction.valueOf(
+                sortOrder().toUpperCase()), sortProperty()));
     }
 
     public Set<Tag> tags() {

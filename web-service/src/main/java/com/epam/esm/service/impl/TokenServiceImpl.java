@@ -1,20 +1,16 @@
 package com.epam.esm.service.impl;
 
-import com.epam.esm.dto.TokenDto;
-import com.epam.esm.entity.Certificate;
 import com.epam.esm.entity.Token;
-import com.epam.esm.exception.CustomEntityNotFoundException;
+import com.epam.esm.exception.EntityNotFoundException;
 import com.epam.esm.repository.TokenRepository;
 import com.epam.esm.service.TokenService;
-import com.epam.esm.util.enums.field.CertificateField;
-import com.epam.esm.util.hateoas.TokenHateoasAdder;
-import com.epam.esm.util.mapper.TokenMapper;
+import com.epam.esm.util.enums.field.TokenField;
+import com.epam.esm.util.enums.field.UserField;
 import com.epam.esm.util.validator.CustomPageValidator;
 import com.epam.esm.util.validator.CustomValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -24,53 +20,39 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class TokenServiceImpl implements TokenService {
     private final TokenRepository tokenRepository;
-    private final TokenMapper tokenMapper;
-    private final TokenHateoasAdder tokenHateoasAdder;
 
     @Scheduled(fixedRate = 1000)
     public void updateExpiringTokens() {
-        LocalDateTime fiveMinutesBeforeNow =
+        LocalDateTime fifteenMinutesBeforeNow =
                 LocalDateTime.now().minusMinutes(15);
 
         for (Token token : tokenRepository
-                .findByCreatedAtBefore(fiveMinutesBeforeNow)) {
+                .findByCreatedAtBefore(fifteenMinutesBeforeNow)) {
             token.setExpired(true);
             tokenRepository.save(token);
         }
     }
 
     @Override
-    public Page<TokenDto> findAllByPage(int page, int size) {
+    public Page<Token> findAllByPage(int page, int size) {
         CustomPageValidator.validate(page, size);
 
-        Pageable pageable = PageRequest.of(page, size);
-        Page<TokenDto> tokens = tokenMapper.mapEntitiyPageToEntityDtoPage(tokenRepository
-                .findAll(pageable), tokenMapper);
-
-        tokenHateoasAdder.addLinksToEntityPage(tokens);
-        return tokens;
+        return tokenRepository.findAll(PageRequest.of(page, size));
     }
 
     @Override
-    public TokenDto findById(Long id) {
-        CustomValidator.validateId(CertificateField.ID, id);
+    public Token findById(Long id) {
+        CustomValidator.validateId(TokenField.ID, id);
 
-        TokenDto token = tokenMapper.toEntityDto(tokenRepository
-                .findById(id).orElseThrow(() -> new CustomEntityNotFoundException(Certificate.class, id)));
-
-        tokenHateoasAdder.addLinksToEntity(token);
-        return token;
+        return tokenRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Token.class, id));
     }
 
     @Override
-    public Page<TokenDto> findByUserIdAndPage(Long userId, int page, int size) {
+    public Page<Token> findByUserIdAndPage(Long userId, int page, int size) {
         CustomPageValidator.validate(page, size);
+        CustomValidator.validateId(UserField.ID, userId);
 
-        Pageable pageable = PageRequest.of(page, size);
-        Page<TokenDto> tokens = tokenMapper.mapEntitiyPageToEntityDtoPage(tokenRepository
-                .findByUserId(userId, pageable), tokenMapper);
-
-        tokenHateoasAdder.addLinksToEntityPage(tokens);
-        return tokens;
+        return tokenRepository.findByUserId(userId, PageRequest.of(page, size));
     }
 }

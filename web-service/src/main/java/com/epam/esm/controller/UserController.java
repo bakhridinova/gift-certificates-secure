@@ -2,8 +2,9 @@ package com.epam.esm.controller;
 
 import com.epam.esm.controller.response.CustomResponse;
 import com.epam.esm.dto.TokenDto;
+import com.epam.esm.dto.UserCredentialsDto;
 import com.epam.esm.dto.UserDto;
-import com.epam.esm.service.UserService;
+import com.epam.esm.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
-    private final UserService userService;
+    private final UserFacade userFacade;
 
     /**
      * GET endpoint to retrieve page of users
@@ -32,7 +33,7 @@ public class UserController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Page<UserDto> getAllByPage(@RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "5") int size) {
-        return userService.findAllByPage(page, size);
+        return userFacade.findAllByPage(page, size);
     }
 
     /**
@@ -44,16 +45,28 @@ public class UserController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<UserDto> getById(@PathVariable Long id) {
-        return new CustomResponse<>(userService.findById(id));
+        return new CustomResponse<>(userFacade.findById(id));
     }
 
+    /**
+     * POST endpoint to sign user up
+     *
+     * @param userCredentials with username and password
+     * @return access token
+     */
     @PostMapping("/register")
-    public CustomResponse<TokenDto> signUp(@RequestBody UserDto user) {
-        return new CustomResponse<>(userService.singUp(user));
+    public CustomResponse<TokenDto> signUp(@RequestBody UserCredentialsDto userCredentials) {
+        return new CustomResponse<>(userFacade.singUp(userCredentials));
     }
 
+    /**
+     * POST endpoint to sign user in
+     *
+     * @param userCredentials with username and password
+     * @return access token
+     */
     @PostMapping("/authenticate")
-    public CustomResponse<TokenDto> singIn(@RequestBody UserDto user) {
-        return new CustomResponse<>(userService.signIn(user));
+    public CustomResponse<TokenDto> singIn(@RequestBody UserCredentialsDto userCredentials) {
+        return new CustomResponse<>(userFacade.signIn(userCredentials));
     }
 }

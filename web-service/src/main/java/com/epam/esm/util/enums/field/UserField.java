@@ -3,7 +3,7 @@ package com.epam.esm.util.enums.field;
 import com.epam.esm.entity.User;
 
 /**
- * enum representing user fields
+ * Enum representing user fields
  *
  * @author bakhridinova
  */

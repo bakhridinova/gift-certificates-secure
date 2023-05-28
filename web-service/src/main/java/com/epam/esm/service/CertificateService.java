@@ -1,18 +1,19 @@
 package com.epam.esm.service;
 
-import com.epam.esm.dto.CertificateDto;
+import com.epam.esm.entity.Certificate;
 import com.epam.esm.util.filter.SearchFilter;
-import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /**
- * interface holding business logic for certificates
+ * Interface holding business logic for certificates
  *
  * @author bakhridinova
  */
 
-public interface CertificateService extends BaseService<CertificateDto> {
+public interface CertificateService extends BaseService<Certificate> {
 
-    Page<CertificateDto> findByFilterAndPage(SearchFilter searchFilter, int page, int size);
+    List<Certificate> findByFilterAndPage(SearchFilter searchFilter, int page, int size);
 
-    CertificateDto updatePriceById(Long id, CertificateDto certificate);
+    Certificate updatePrice(Certificate certificate);
 }

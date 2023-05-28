@@ -3,13 +3,13 @@ package com.epam.esm.util.enums.field;
 import org.springframework.data.domain.Sort;
 
 /**
- * enum representing sort fields
+ * Enum representing sort fields
  *
  * @author bakhridinova
  */
 
 public enum SortField implements EntityField<Sort> {
-    TYPE,
+    PROPERTY,
     ORDER;
 
     @Override

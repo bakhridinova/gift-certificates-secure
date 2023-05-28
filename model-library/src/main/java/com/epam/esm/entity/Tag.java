@@ -2,9 +2,12 @@ package com.epam.esm.entity;
 
 import com.epam.esm.listener.AuditListener;
 import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -12,8 +15,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
- * class representing tag entity
+ * Class representing tag entity
  *
  * @author bakhridinova
  */
@@ -31,6 +36,13 @@ public class Tag extends AbstractEntity {
             nullable = false,
             unique = true)
     private String name;
+
+    @ManyToMany(
+            mappedBy = "tags",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE
+    )
+    private List<Certificate> certificates;
 
     @Builder
     public Tag(Long id, String name) {

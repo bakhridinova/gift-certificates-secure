@@ -3,7 +3,7 @@ package com.epam.esm.util.enums.field;
 import com.epam.esm.entity.Certificate;
 
 /**
- * enum representing certificate fields
+ * Enum representing certificate fields
  *
  * @author bakhridinova
  */

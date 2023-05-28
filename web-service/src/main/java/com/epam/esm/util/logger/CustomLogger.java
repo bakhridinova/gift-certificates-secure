@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
- * aspect for logging method calls
+ * Aspect for logging method calls
  * and exceptions thrown by methods in Spring components annotated with
  * {@link org.springframework.stereotype.Repository @Repository},
  * {@link org.springframework.stereotype.Service @Service},

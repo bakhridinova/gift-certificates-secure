@@ -1,7 +1,7 @@
 package com.epam.esm.util.enums.field;
 
 /**
- * marker interface for different entity field names
+ * Marker interface for different entity field names
  *
  * @author bakhridinova
  */

@@ -1,6 +1,7 @@
 package com.epam.esm.util.mapper;
 
 import com.epam.esm.dto.CertificateDto;
+import com.epam.esm.dto.CertificatePriceDto;
 import com.epam.esm.entity.Certificate;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
@@ -11,4 +12,7 @@ public interface CertificateMapper extends BaseMapper<Certificate, CertificateDt
     @Override
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
     CertificateDto toEntityDto(Certificate certificate);
+
+    @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
+    Certificate toEntity(CertificatePriceDto certificatePrice);
 }

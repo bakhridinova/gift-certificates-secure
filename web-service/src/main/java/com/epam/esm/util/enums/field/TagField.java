@@ -3,7 +3,7 @@ package com.epam.esm.util.enums.field;
 import com.epam.esm.entity.Tag;
 
 /**
- * enum representing tag fields
+ * Enum representing tag fields
  *
  * @author bakhridinova
  */

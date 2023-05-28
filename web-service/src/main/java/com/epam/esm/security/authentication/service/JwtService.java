@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * jwt service holding jwt creation and validation logic
+ * JWT service holding JWT creation and validation logic
  *
  * @see CustomBearerAuthenticationProvider#jwtService
  */

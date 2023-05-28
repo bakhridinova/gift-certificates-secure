@@ -3,7 +3,7 @@ package com.epam.esm.util.enums.field;
 import org.springframework.data.domain.Page;
 
 /**
- * enum representing pagination fields
+ * Enum representing pagination fields
  *
  * @author bakhridinova
  */

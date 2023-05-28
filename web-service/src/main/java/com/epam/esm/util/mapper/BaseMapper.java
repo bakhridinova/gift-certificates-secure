@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 /**
- * mapper to convert entity into entity dto and vice versa
+ * Mapper to convert entity into entity dto and vice versa
  *
  * @author bakhridinova
  */

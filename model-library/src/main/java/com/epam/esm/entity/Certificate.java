@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * class representing certificate entity
+ * Class representing certificate entity
  *
  * @author bakhridinova
  */

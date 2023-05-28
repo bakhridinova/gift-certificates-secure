@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
- * custom authentication filter holding
+ * Custom authentication filter holding
  * basic and bearer authorization logic
  *
  * @author bakhridinova

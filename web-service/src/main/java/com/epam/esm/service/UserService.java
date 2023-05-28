@@ -1,16 +1,16 @@
 package com.epam.esm.service;
 
 
-import com.epam.esm.dto.TokenDto;
-import com.epam.esm.dto.UserDto;
+import com.epam.esm.entity.Token;
+import com.epam.esm.entity.User;
 
 /**
- * interface holding business logic for users
+ * Interface holding business logic for users
  *
  * @author bakhridinova
  */
 
-public interface UserService extends BaseService<UserDto> {
-    TokenDto singUp(UserDto user);
-    TokenDto signIn(UserDto user);
+public interface UserService extends BaseService<User> {
+    Token singUp(User user);
+    Token signIn(User user);
 }

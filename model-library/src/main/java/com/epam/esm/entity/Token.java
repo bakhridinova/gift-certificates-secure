@@ -23,6 +23,12 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class representing token entity
+ *
+ * @author bakhridinova
+ */
+
 @Data
 @Entity
 @Table(name = "tokens")

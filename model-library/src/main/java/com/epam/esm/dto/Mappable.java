@@ -1,7 +1,7 @@
 package com.epam.esm.dto;
 
 /**
- * marker interface for data transfer objects
+ * Marker interface for data transfer objects
  *
  * @author bakhridinova
  */

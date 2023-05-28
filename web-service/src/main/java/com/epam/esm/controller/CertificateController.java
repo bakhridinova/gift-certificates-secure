@@ -2,7 +2,8 @@ package com.epam.esm.controller;
 
 import com.epam.esm.controller.response.CustomResponse;
 import com.epam.esm.dto.CertificateDto;
-import com.epam.esm.service.CertificateService;
+import com.epam.esm.dto.CertificatePriceDto;
+import com.epam.esm.facade.CertificateFacade;
 import com.epam.esm.util.filter.SearchFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/certificates")
+@RequestMapping("/api/v1/certificates")
 public class CertificateController {
-    private final CertificateService certificateService;
+    private final CertificateFacade certificateFacade;
 
     /**
      * GET endpoint to retrieve page of certificates
@@ -34,7 +35,7 @@ public class CertificateController {
     @GetMapping
     public Page<CertificateDto> getAllByPage(@RequestParam(defaultValue = "0") int page,
                                              @RequestParam(defaultValue = "5") int size) {
-        return certificateService.findAllByPage(page, size);
+        return certificateFacade.findAllByPage(page, size);
     }
 
     /**
@@ -45,7 +46,7 @@ public class CertificateController {
      */
     @GetMapping("/{id}")
     public CustomResponse<CertificateDto> getById(@PathVariable Long id) {
-        return new CustomResponse<>(certificateService.findById(id));
+        return new CustomResponse<>(certificateFacade.findById(id));
     }
 
     /**
@@ -61,11 +62,11 @@ public class CertificateController {
     public Page<CertificateDto> search(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "5") int size,
                                        @RequestBody(required = false) SearchFilter searchFilter) {
-        return certificateService.findByFilterAndPage(searchFilter, page, size);
+        return certificateFacade.findByFilterAndPage(searchFilter, page, size);
     }
 
     /**
-     * handles POST requests for creating new certificate
+     * POST endpoint for creating new certificate
      *
      * @param certificate representing new certificate to be created
      * @return certificate that was created
@@ -73,25 +74,23 @@ public class CertificateController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public CustomResponse<CertificateDto> create(@RequestBody CertificateDto certificate) {
-        return new CustomResponse<>(certificateService.create(certificate));
+        return new CustomResponse<>(certificateFacade.create(certificate));
     }
 
     /**
-     * handles PATCH requests for updating price of specific certificate
+     * PATCH endpoint for updating price of specific certificatePriceDto
      *
-     * @param id ID of certificate to update
-     * @param certificate with new price
-     * @return updated certificate
+     * @param certificatePrice with certificate id and new price
+     * @return updated certificatePriceDto
      */
-    @PatchMapping("/{id}")
+    @PatchMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public CustomResponse<CertificateDto> updatePriceById(@PathVariable Long id,
-                                                          @RequestBody CertificateDto certificate) {
-        return new CustomResponse<>(certificateService.updatePriceById(id, certificate));
+    public CustomResponse<CertificateDto> updatePrice(@RequestBody CertificatePriceDto certificatePrice) {
+        return new CustomResponse<>(certificateFacade.updatePrice(certificatePrice));
     }
 
     /**
-     * handles DELETE requests for deleting specific certificate
+     * DELETE for deleting specific certificate
      *
      * @param id of certificate to delete
      * @return message expressing that certificate was successfully deleted
@@ -99,6 +98,7 @@ public class CertificateController {
     @DeleteMapping("{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public CustomResponse<?> deleteById(@PathVariable Long id) {
-        return new CustomResponse<>(HttpStatus.OK, certificateService.deleteById(id));
+        certificateFacade.deleteById(id);
+        return new CustomResponse<>(HttpStatus.OK, "certificate was successfully deleted");
     }
 }

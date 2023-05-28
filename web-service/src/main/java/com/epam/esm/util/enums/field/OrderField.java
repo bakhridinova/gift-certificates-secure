@@ -3,7 +3,7 @@ package com.epam.esm.util.enums.field;
 import com.epam.esm.entity.Order;
 
 /**
- * enum representing order fields
+ * Enum representing order fields
  *
  * @author bakhridinova
  */

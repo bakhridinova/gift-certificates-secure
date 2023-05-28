@@ -10,9 +10,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query(nativeQuery = true,
             value = "select * from users where not password ~ :regex ;")
-    List<User> findByPasswordMatchingRegex(String regex);
+    List<User> findByPasswordNotMatchingRegex(String regex);
 
-    @Query(nativeQuery = true,
-            value = "select * from users where username = :username ;")
     Optional<User> findByUsername(String username);
 }

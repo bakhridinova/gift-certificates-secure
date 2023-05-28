@@ -1,9 +1,9 @@
 package com.epam.esm.controller.advice;
 
 import com.epam.esm.controller.response.CustomResponse;
-import com.epam.esm.exception.CustomEntityAlreadyExistsException;
-import com.epam.esm.exception.CustomEntityNotFoundException;
-import com.epam.esm.exception.CustomValidationException;
+import com.epam.esm.exception.EntityAlreadyExistsException;
+import com.epam.esm.exception.EntityNotFoundException;
+import com.epam.esm.exception.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.Objects;
 
 /**
- * controller advice handling exceptions
+ * Controller advice handling exceptions
  *
  * @author bakhridinova
  */
@@ -67,20 +67,20 @@ public class CustomControllerAdvice extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({
-            CustomValidationException.class,
-            CustomEntityNotFoundException.class,
-            CustomEntityAlreadyExistsException.class})
+            ValidationException.class,
+            EntityNotFoundException.class,
+            EntityAlreadyExistsException.class})
     public ResponseEntity<CustomResponse<?>> handleException(Exception ex) {
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         String message = "something went wrong :(";
 
-        if (ex instanceof CustomValidationException ||
-                ex instanceof CustomEntityAlreadyExistsException) {
+        if (ex instanceof ValidationException ||
+                ex instanceof EntityAlreadyExistsException) {
             status = HttpStatus.BAD_REQUEST;
             message = ex.getMessage();
         }
 
-        if (ex instanceof CustomEntityNotFoundException){
+        if (ex instanceof EntityNotFoundException){
             status = HttpStatus.NOT_FOUND;
             message = ex.getMessage();
         }

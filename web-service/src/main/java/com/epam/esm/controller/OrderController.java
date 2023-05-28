@@ -2,7 +2,7 @@ package com.epam.esm.controller;
 
 import com.epam.esm.controller.response.CustomResponse;
 import com.epam.esm.dto.OrderDto;
-import com.epam.esm.service.OrderService;
+import com.epam.esm.facade.OrderFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/orders")
+@RequestMapping("/api/v1/orders")
 public class OrderController {
-    private final OrderService orderService;
+    private final OrderFacade orderFacade;
 
     /**
      * GET endpoint to retrieve list of orders
@@ -32,7 +32,7 @@ public class OrderController {
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Page<OrderDto> getAllByPage(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "5") int size) {
-       return orderService.findAllByPage(page, size);
+       return orderFacade.findAllByPage(page, size);
     }
 
     /**
@@ -44,7 +44,7 @@ public class OrderController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> getById(@PathVariable Long id) {
-       return new CustomResponse<>(orderService.findById(id));
+       return new CustomResponse<>(orderFacade.findById(id));
     }
 
     /**
@@ -56,7 +56,7 @@ public class OrderController {
     @PatchMapping("/{id}/pay")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> payById(@PathVariable Long id) {
-        return new CustomResponse<>(orderService.payById(id));
+        return new CustomResponse<>(orderFacade.payById(id));
     }
 
     /**
@@ -68,11 +68,11 @@ public class OrderController {
     @PatchMapping("/{id}/cancel")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> cancelById(@PathVariable Long id) {
-        return new CustomResponse<>(orderService.cancelById(id));
+        return new CustomResponse<>(orderFacade.cancelById(id));
     }
 
     /**
-     * handles POST requests for creating new order
+     * POST endpoint for creating new order
      *
      * @param order representing new order to be created
      * @return order that was created
@@ -80,7 +80,7 @@ public class OrderController {
     @PostMapping
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CustomResponse<OrderDto> create(@RequestBody OrderDto order) {
-        return new CustomResponse<>(orderService.create(order));
+        return new CustomResponse<>(orderFacade.create(order));
     }
 
     /**
@@ -96,6 +96,6 @@ public class OrderController {
     public Page<OrderDto> getByUserId(@RequestParam(required = false) Long userId,
                                       @RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "5") int size) {
-        return orderService.findByUserIdAndPage(userId, page, size);
+        return orderFacade.findByUserIdAndPage(userId, page, size);
     }
 }

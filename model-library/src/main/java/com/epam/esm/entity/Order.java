@@ -23,7 +23,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 /**
- * class representing order entity
+ * Class representing order entity
  *
  * @author bakhridinova
  */

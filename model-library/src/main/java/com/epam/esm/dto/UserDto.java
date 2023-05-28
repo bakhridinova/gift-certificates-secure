@@ -10,7 +10,7 @@ import org.springframework.hateoas.RepresentationModel;
 import java.time.LocalDate;
 
 /**
- * class representing data transfer object for user
+ * Class representing data transfer object for user
  *
  * @author bakhridinova
  */

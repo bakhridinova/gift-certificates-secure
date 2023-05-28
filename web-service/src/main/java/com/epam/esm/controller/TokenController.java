@@ -2,7 +2,7 @@ package com.epam.esm.controller;
 
 import com.epam.esm.controller.response.CustomResponse;
 import com.epam.esm.dto.TokenDto;
-import com.epam.esm.service.TokenService;
+import com.epam.esm.facade.TokenFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/tokens")
+@RequestMapping("/api/v1/tokens")
 public class TokenController {
-    private final TokenService tokenService;
+    private final TokenFacade tokenFacade;
 
     /**
      * GET endpoint to retrieve page of tokens
@@ -29,7 +29,7 @@ public class TokenController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     public Page<TokenDto> getAllByPage(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "5") int size) {
-        return tokenService.findAllByPage(page, size);
+        return tokenFacade.findAllByPage(page, size);
     }
 
     /**
@@ -41,7 +41,7 @@ public class TokenController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public CustomResponse<TokenDto> getById(@PathVariable Long id) {
-        return new CustomResponse<>(tokenService.findById(id));
+        return new CustomResponse<>(tokenFacade.findById(id));
     }
 
     /**
@@ -53,10 +53,10 @@ public class TokenController {
      * @return page of tokens associated with certificate
      */
     @GetMapping("/search")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public Page<TokenDto> getByUserId(@RequestParam(required = false) Long userId,
                                       @RequestParam(defaultValue = "0") int page,
                                       @RequestParam(defaultValue = "5") int size) {
-        return tokenService.findByUserIdAndPage(userId, page, size);
+        return tokenFacade.findByUserIdAndPage(userId, page, size);
     }
 }

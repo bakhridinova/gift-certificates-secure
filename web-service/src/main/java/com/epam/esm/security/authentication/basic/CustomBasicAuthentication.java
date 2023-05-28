@@ -9,7 +9,7 @@ import java.util.Base64;
 import java.util.Collection;
 
 /**
- * class representing basic authentication
+ * Class representing basic authentication
  *
  * @author bakhridinova
  */
@@ -17,7 +17,7 @@ import java.util.Collection;
 @Data
 public class CustomBasicAuthentication implements Authentication {
     private Collection<? extends GrantedAuthority> authorities;
-    private final boolean authenticated;
+    private boolean authenticated;
     private final String username;
     private final String password;
 
@@ -43,6 +43,11 @@ public class CustomBasicAuthentication implements Authentication {
     }
 
     @Override
+    public void setAuthenticated(boolean authenticated) throws IllegalArgumentException {
+        this.authenticated = authenticated;
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
@@ -60,11 +65,6 @@ public class CustomBasicAuthentication implements Authentication {
     @Override
     public Object getPrincipal() {
         return null;
-    }
-
-    @Override
-    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
     }
 
     @Override
