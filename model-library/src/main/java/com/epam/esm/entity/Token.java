@@ -18,7 +18,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -29,7 +31,8 @@ import java.time.LocalDateTime;
  * @author bakhridinova
  */
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tokens")
 @EqualsAndHashCode(callSuper = true)
@@ -53,7 +56,7 @@ public class Token extends AbstractEntity {
     @Column(name = "expired")
     public boolean expired;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User user;
 

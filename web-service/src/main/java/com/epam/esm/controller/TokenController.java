@@ -3,6 +3,7 @@ package com.epam.esm.controller;
 import com.epam.esm.controller.response.CustomResponse;
 import com.epam.esm.dto.TokenDto;
 import com.epam.esm.facade.TokenFacade;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Hidden
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/tokens")

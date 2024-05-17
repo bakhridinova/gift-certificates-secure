@@ -17,7 +17,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,7 +32,8 @@ import java.util.List;
  * @author bakhridinova
  */
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "certificates")
 @EqualsAndHashCode(callSuper = true)
@@ -64,7 +67,7 @@ public class Certificate extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "certificate_tag",
             joinColumns = { @JoinColumn(name = "tag_id") },

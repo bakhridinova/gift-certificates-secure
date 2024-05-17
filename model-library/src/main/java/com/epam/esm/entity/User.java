@@ -15,7 +15,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -25,7 +27,8 @@ import java.time.LocalDate;
  * @author bakhridinova
  */
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 @EqualsAndHashCode(callSuper = true)

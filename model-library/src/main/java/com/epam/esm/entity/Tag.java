@@ -13,7 +13,9 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -23,7 +25,8 @@ import java.util.List;
  * @author bakhridinova
  */
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tags")
 @EqualsAndHashCode(callSuper = true)
@@ -39,7 +42,7 @@ public class Tag extends AbstractEntity {
 
     @ManyToMany(
             mappedBy = "tags",
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.MERGE
     )
     private List<Certificate> certificates;
